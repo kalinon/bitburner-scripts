@@ -8,6 +8,10 @@ export async function checkServer(ns, target) {
     ns.print(` - Need root access to ${target}`);
     await gainAccess(ns, target);
   }
+
+  if (ns.hasRootAccess(target)) {
+    await initRemoteLib(ns, target);
+  }
 }
 
 /**
@@ -49,4 +53,14 @@ export async function hackServer(ns, target) {
       await ns.hack(target);
     }
   }
+}
+
+/**
+ * @param {NS} ns
+ * @param {string} target
+ **/
+export async function initRemoteLib(ns, target) {
+  ns.tprint(` - initializing remote lib: ${target}`);
+  await ns.scp("/scrips/git-pull.js", "home", target);
+  ns.exec("git-pull.js", target);
 }

@@ -7,7 +7,7 @@ export async function main(ns) {
     await checkServer(ns, servers[i]);
   }
 
-  while (true) {
+  while (true && servers.length > 0) {
     for (var i = 1; i < servers.length; i++) {
       await hackServer(ns, servers[i]);
     }
