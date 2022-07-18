@@ -1,15 +1,10 @@
-import { checkServer, hackServer } from "./scripts/lib.js";
+import { hackServer } from "./scripts/lib.js";
 
 /** @param {NS} ns */
 export async function main(ns) {
-  var servers = ns.scan();
-  for (var i = 1; i < servers.length; i++) {
-    await checkServer(ns, servers[i]);
-  }
+  var target = ns.args[0];
 
   while (true) {
-    for (var i = 1; i < servers.length; i++) {
-      await hackServer(ns, servers[i]);
-    }
+    await hackServer(ns, target);
   }
 }
